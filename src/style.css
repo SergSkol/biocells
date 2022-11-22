@@ -1,0 +1,6 @@
+body {
+  max-width: 500px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: lightgray;
+}
