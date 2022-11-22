@@ -1,0 +1,29 @@
+body {
+  max-width: 512px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: lightgray;
+}
+
+.drop-target-row {
+  display: flex;
+}
+
+.drop-target {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid #aaa;
+  background-color: white;
+}
+
+.container-drag {
+  display: flex;
+}
+
+.drag {
+  width: 31px;
+  height: 31px;
+  border: 1px solid #aaa;
+  background-color: blue;
+}
