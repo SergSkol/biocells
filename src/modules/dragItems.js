@@ -15,10 +15,10 @@ export default class DragItems {
     const item = this.getItemById(id);
     if (item.value === 1) {
       team = '.team1';
-      dragItem.classList.add('blue');
-    } else {
-      team = '.team2';
       dragItem.classList.add('red');
+    } else if (item.value === 2) {
+      team = '.team2';
+      dragItem.classList.add('blue');
     }
 
     dragItem.setAttribute('draggable', true);
@@ -38,7 +38,7 @@ export default class DragItems {
     if (item) {
       if (item.value === 1) {
         team = '.team1';
-      } else {
+      } else if (item.value === 2) {
         team = '.team2';
       }
       const dragItem = document.getElementById(item.id);

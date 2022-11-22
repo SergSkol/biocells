@@ -17,4 +17,8 @@ export default class Storage {
     const data = JSON.parse(json);
     return data;
   };
+
+  remove = () => {
+    localStorage.removeItem(this.storageKey);
+  };
 }

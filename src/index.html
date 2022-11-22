@@ -14,17 +14,27 @@
             <h3 class="header-descr">Biocells</h3>
         </header>
         <section class="main">
-          <div class="container-drag team2"></div>
-          <div class="container-grid"></div>
-          <div class="container-drag team1"></div>
+          <div class="container-main">
+            <div class="container-drag team1"></div>
+            <div class="container-grid"></div>
+            <div class="container-drag team2"></div>
+          </div>
           <button class="step-btn">STEP</button>
+          <button class="start-btn">START</button>
+          <button class="stop-btn">STOP</button>
+          <button class="reset-btn">RESET</button>
         </section>
         <footer class="footer">
-          <h2>Rules:</h2>
+          <h2>Basic rules:</h2>
           <p>
             Any live cell with two or three live neighbours survives.<br>
             Any dead cell with three live neighbours becomes a live cell.<br>
             All other live cells die in the next generation. Similarly, all other dead cells stay dead.
+          </p>
+          <h2>Additional rules:</h2>
+          <p>
+            Neighbours are always have the same color.<br>
+            Cell becomes a live, if there is no other's color three cells around.<br>
           </p>
         </footer>
     </section>
