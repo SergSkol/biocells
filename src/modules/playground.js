@@ -14,7 +14,7 @@ export default class Playground {
       for (let i = 0; i < this.sizeY; i += 1) {
         const cell = document.createElement('div');
         cell.classList.add('drop-target');
-        cell.id = `${j} ${i}`;
+        cell.id = `cell ${j} ${i}`;
         row.appendChild(cell);
       }
     }
@@ -32,5 +32,17 @@ export default class Playground {
 
   set = (j, i, value) => {
     this.arr[j][i] = value;
+  }
+
+  getCount = (value) => {
+    let count = 0;
+    for (let j = 0; j < this.sizeX; j += 1) {
+      for (let i = 0; i < this.sizeY; i += 1) {
+        if (this.arr[j][i] === value) {
+          count += 1;
+        }
+      }
+    }
+    return count;
   }
 }

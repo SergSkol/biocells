@@ -1,5 +1,6 @@
-// import './style.css';
+import './style.css';
 import Playground from './modules/playground.js';
+import DragItems from './modules/dragItems.js';
 import Storage from './modules/storage.js';
 
 const storage = new Storage();
@@ -9,13 +10,21 @@ const data = storage.load();
 playground.load(data);
 playground.showGrid();
 
-for (let i = 0; i < 9; i += 1) {
-  const dragContainer = document.querySelector('.container-drag');
-  const dragItem = document.createElement('div');
-  dragItem.classList.add('drag');
-  dragItem.setAttribute('draggable', true);
-  dragItem.id = `drag ${i}`;
-  dragContainer.appendChild(dragItem);
+const dragItems = new DragItems();
+
+for (let j = 0; j < playground.sizeX; j += 1) {
+  for (let i = 0; i < playground.sizeY; i += 1) {
+    if (playground.arr[j][i] === 1) {
+      const id = dragItems.add(j, i, 1);
+      dragItems.show(id, j, i);
+    }
+  }
+}
+
+const count = playground.getCount(1);
+for (let i = 0; i < 8 - count; i += 1) {
+  const id = dragItems.add(-1, -1, 1);
+  dragItems.show(id, -1, -1);
 }
 
 function allowDrop(ev) {
@@ -28,12 +37,20 @@ function drag(ev) {
 
 function drop(ev) {
   ev.preventDefault();
-  const data = ev.dataTransfer.getData('text');
-  const dropped = document.getElementById(data);
-  ev.target.appendChild(dropped);
+  const id = ev.dataTransfer.getData('text');
+  const dropped = document.getElementById(id);
 
-  const coordsTo = ev.target.id.split(' ');
-  playground.set(coordsTo[0], coordsTo[1], 1);
+  const item = dragItems.getItemById(id);
+  const { x } = item;
+  const { y } = item;
+  if (x !== -1 && y !== -1) {
+    playground.set(x, y, 0);
+  }
+
+  dragItems.move(dropped, ev.target);
+
+  const toXY = ev.target.id.split(' ');
+  playground.set(parseInt(toXY[1], 10), parseInt(toXY[2], 10), 1);
 
   storage.save(playground.arr);
 }
