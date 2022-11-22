@@ -14,10 +14,18 @@
             <h3 class="header-descr">Biocells</h3>
         </header>
         <section class="main">
+          <div class="container-drag team2"></div>
           <div class="container-grid"></div>
-          <div class="container-drag"></div>
+          <div class="container-drag team1"></div>
+          <button class="step-btn">STEP</button>
         </section>
         <footer class="footer">
+          <h2>Rules:</h2>
+          <p>
+            Any live cell with two or three live neighbours survives.<br>
+            Any dead cell with three live neighbours becomes a live cell.<br>
+            All other live cells die in the next generation. Similarly, all other dead cells stay dead.
+          </p>
         </footer>
     </section>
     <script type="module" src="./index.js"></script>
