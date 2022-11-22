@@ -13,7 +13,7 @@ body {
   width: 32px;
   height: 32px;
   padding: 0;
-  border: 1px solid #aaaaaa;
+  border: 1px solid #aaa;
   background-color: white;
 }
 
@@ -24,6 +24,6 @@ body {
 .drag {
   width: 31px;
   height: 31px;
-  border: 1px solid #aaaaaa;
+  border: 1px solid #aaa;
   background-color: blue;
 }

@@ -9,12 +9,12 @@ const data = storage.load();
 playground.load(data);
 playground.showGrid();
 
-for (let i=0; i<9; i+=1) {
+for (let i = 0; i < 9; i += 1) {
   const dragContainer = document.querySelector('.container-drag');
-  const dragItem = document.createElement("div");
-  dragItem.classList.add("drag");
-  dragItem.setAttribute("draggable", true);
-  dragItem.id="drag "+i;
+  const dragItem = document.createElement('div');
+  dragItem.classList.add('drag');
+  dragItem.setAttribute('draggable', true);
+  dragItem.id = `drag ${i}`;
   dragContainer.appendChild(dragItem);
 }
 
@@ -23,16 +23,16 @@ function allowDrop(ev) {
 }
 
 function drag(ev) {
-  ev.dataTransfer.setData("text", ev.target.id);
+  ev.dataTransfer.setData('text', ev.target.id);
 }
 
 function drop(ev) {
   ev.preventDefault();
-  const data = ev.dataTransfer.getData("text");
+  const data = ev.dataTransfer.getData('text');
   const dropped = document.getElementById(data);
   ev.target.appendChild(dropped);
 
-  const coordsTo = ev.target.id.split(" ");
+  const coordsTo = ev.target.id.split(' ');
   playground.set(coordsTo[0], coordsTo[1], 1);
 
   storage.save(playground.arr);
@@ -50,8 +50,8 @@ dropTargets.forEach((item) => {
   item.addEventListener('drop', (event) => {
     drop(event);
   });
-  
+
   item.addEventListener('dragover', (event) => {
     allowDrop(event);
-  });  
+  });
 });
