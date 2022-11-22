@@ -3,13 +3,28 @@ export default class DragItems {
     this.items = [];
   }
 
+  getItemById = (id) => {
+    const item = this.items.find((e) => e.id === id);
+    return item;
+  }
+
   show = (id, x, y) => {
+    let team = '';
     const dragItem = document.createElement('div');
     dragItem.classList.add('drag');
+    const item = this.getItemById(id);
+    if (item.value === 1) {
+      team = '.team1';
+      dragItem.classList.add('blue');
+    } else {
+      team = '.team2';
+      dragItem.classList.add('red');
+    }
+
     dragItem.setAttribute('draggable', true);
     dragItem.id = id;
     if (x === -1 && y === -1) {
-      const dragContainer = document.querySelector('.container-drag');
+      const dragContainer = document.querySelector(team);
       dragContainer.appendChild(dragItem);
     } else {
       const dragContainer = document.getElementById(`cell ${x} ${y}`);
@@ -17,9 +32,26 @@ export default class DragItems {
     }
   }
 
-  getItemById = (id) => {
-    const itemById = this.items.find((e) => e.id === id);
-    return itemById;
+  hide = (x, y) => {
+    let team = '';
+    const item = this.items.find((e) => e.x === x && e.y === y);
+    if (item) {
+      if (item.value === 1) {
+        team = '.team1';
+      } else {
+        team = '.team2';
+      }
+      const dragItem = document.getElementById(item.id);
+      if (x === -1 && y === -1) {
+        const dragContainer = document.querySelector(team);
+        dragContainer.removeChild(dragItem);
+      } else {
+        const dragContainer = document.getElementById(`cell ${x} ${y}`);
+        dragContainer.removeChild(dragItem);
+      }
+
+      this.items = this.items.filter((e) => e.id !== item.id);
+    }
   }
 
   move = (dropped, target) => {
@@ -33,7 +65,7 @@ export default class DragItems {
   }
 
   add = (x, y, value) => {
-    const id = `drag ${this.items.length}`;
+    const id = `drag ${Date.now() + this.items.length}`;
 
     const item = {
       id,

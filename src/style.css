@@ -10,8 +10,8 @@ body {
 }
 
 .drop-target {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   padding: 0;
   border: 1px solid #aaa;
   background-color: white;
@@ -24,6 +24,21 @@ body {
 .drag {
   width: 32px;
   height: 32px;
+  padding: 4px;
   border: 1px solid #aaa;
+  animation-name: appear;
+  animation-duration: 1s;
+}
+
+@keyframes appear {
+  0% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+.blue {
   background-color: blue;
+}
+
+.red {
+  background-color: red;
 }
