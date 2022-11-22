@@ -17,8 +17,12 @@ body {
   background-color: white;
 }
 
-.container-drag {
+.container-main {
   display: flex;
+}
+
+.container-drag {
+  width: 42px;
 }
 
 .drag {

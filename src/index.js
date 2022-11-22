@@ -18,9 +18,15 @@ const dragItems = new DragItems();
 
 populate(playground, dragItems);
 
-const count = playground.getCount(1);
-for (let i = 0; i < dragItemsNumber - count; i += 1) {
+const count1 = playground.getCount(1);
+for (let i = 0; i < dragItemsNumber - count1; i += 1) {
   const id = dragItems.add(-1, -1, 1);
+  dragItems.show(id, -1, -1);
+}
+
+const count2 = playground.getCount(2);
+for (let i = 0; i < dragItemsNumber - count2; i += 1) {
+  const id = dragItems.add(-1, -1, 2);
   dragItems.show(id, -1, -1);
 }
 
@@ -47,11 +53,21 @@ function drop(ev) {
       playground.set(x, y, 0);
     }
     dragItems.move(dropped, ev.target);
-    playground.set(parseInt(toXY[1], 10), parseInt(toXY[2], 10), 1);
+    playground.set(parseInt(toXY[1], 10), parseInt(toXY[2], 10), item.value);
   }
 
   storage.save(playground.arr);
 }
+
+const run = () => {
+  playground.arr = calcPlayground(playground).slice();
+  storage.save(playground.arr);
+
+  populate(playground, dragItems);
+
+  // Need to remove this line, and fix reflection
+  // window.location.reload();
+};
 
 const drags = document.querySelectorAll('.drag');
 drags.forEach((item) => {
@@ -73,10 +89,23 @@ dropTargets.forEach((item) => {
 
 const stepBtn = document.querySelector('.step-btn');
 stepBtn.addEventListener('click', () => {
-  playground.arr = calcPlayground(playground).slice();
-  storage.save(playground.arr);
+  run();
+});
 
-  populate(playground, dragItems);
+let refreshIntervalId;
 
-  // window.location.reload();
+const startBtn = document.querySelector('.start-btn');
+startBtn.addEventListener('click', () => {
+  refreshIntervalId = setInterval(run, 500);
+});
+
+const stopBtn = document.querySelector('.stop-btn');
+stopBtn.addEventListener('click', () => {
+  clearInterval(refreshIntervalId);
+});
+
+const resetBtn = document.querySelector('.reset-btn');
+resetBtn.addEventListener('click', () => {
+  storage.remove();
+  window.location.reload();
 });
