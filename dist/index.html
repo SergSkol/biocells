@@ -11,30 +11,49 @@
   <body>
     <section class="main">
         <header class="header">
-            <h3 class="header-descr">Biocells</h3>
+            <h1 class="header-descr">Biocells</h1>
+            <a href="#" class="header-settings-open fa-solid fa-gear"></a>
         </header>
+
+        <div class="popup-settings hide">
+          <a href="#" class="popup-settings-close fa-solid fa-xmark"></a>
+          <div header-settings-inputs>
+            <label class="header-settings-input-label" for="playgroundSize">Playground Size</label>
+            <input type="number" id="playgroundSize"/>
+            <a href="#" class="popup-settings-save fa-solid fa-check"></a>
+          </div>
+        </div>
+
         <section class="main">
+          <div container-stat>
+            <span id="step-count">Generation: zero</span>
+          </div>
+
+          <div class="container-btn">
+            <button class="step-btn">STEP</button>
+            <button class="start-btn">START</button>
+            <button class="stop-btn">STOP</button>
+            <button class="reset-btn">RESET</button>
+          </div>
+
           <div class="container-main">
             <div class="container-drag team1"></div>
             <div class="container-grid"></div>
             <div class="container-drag team2"></div>
           </div>
-          <button class="step-btn">STEP</button>
-          <button class="start-btn">START</button>
-          <button class="stop-btn">STOP</button>
-          <button class="reset-btn">RESET</button>
         </section>
         <footer class="footer">
           <h2>Basic rules:</h2>
           <p>
-            Any live cell with two or three live neighbours survives.<br>
-            Any dead cell with three live neighbours becomes a live cell.<br>
-            All other live cells die in the next generation. Similarly, all other dead cells stay dead.
+            - Any live cell with two or three live neighbours survives.<br>
+            - Any dead cell with three live neighbours becomes a live cell.<br>
+            - All other live cells die in the next generation. Similarly, all other dead cells stay dead.
           </p>
-          <h2>Additional rules:</h2>
+          <h2>Additional rules for two colonies:</h2>
           <p>
-            Neighbours are always have the same color.<br>
-            Cell becomes a live, if there is no other's color three cells around.<br>
+            - "Neighbours" from basic rules are always have the same color.<br>
+            - Dead cell becomes a live, if there are no other's three cells around with different color.<br>
+            - Three+ neighbours can murder competitor cell. Who has more neighbours stay a live.
           </p>
         </footer>
     </section>

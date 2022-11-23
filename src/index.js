@@ -5,10 +5,16 @@ import Storage from './modules/storage.js';
 import populate from './modules/populate.js';
 import calcPlayground from './modules/logic.js';
 
-const playgroundSize = 8;
-const dragItemsNumber = 8;
+let playgroundColumns = 8;
+let playgroundRows = 8;
+let dragItemsNumber = 8;
+let refreshIntervalId;
+let stepCount = 0;
+
 const storage = new Storage();
-const playground = new Playground(playgroundSize, playgroundSize);
+const playground = new Playground(playgroundColumns, playgroundRows);
+
+const stepCountDOM = document.querySelector('#step-count');
 
 const data = storage.load();
 playground.load(data);
@@ -40,23 +46,29 @@ function drag(ev) {
 
 function drop(ev) {
   ev.preventDefault();
+
   const id = ev.dataTransfer.getData('text');
-  const dropped = document.getElementById(id);
+  const item = dragItems.getItemById(id);
 
-  const toXY = ev.target.id.split(' ');
+  // console.log(ev.target, item); // debug
+
+  const fromX = item.x;
+  const fromY = item.y;
+  const { value } = item;
+  const toXY = ev.target.id.split(' '); // "cell 1 2"
   if (toXY[0] === 'cell') {
-    const item = dragItems.getItemById(id);
-    const { x } = item;
-    const { y } = item;
-    // console.log(item,x,y)
-    if (x > 0 && y > 0) {
-      playground.set(x, y, 0);
-    }
-    dragItems.move(dropped, ev.target);
-    playground.set(parseInt(toXY[1], 10), parseInt(toXY[2], 10), item.value);
-  }
+    const toX = parseInt(toXY[1], 10);
+    const toY = parseInt(toXY[2], 10);
 
-  storage.save(playground.arr);
+    playground.set(fromY, fromX, 0);
+    playground.set(toY, toX, value);
+
+    const newId = dragItems.add(toY, toX, value);
+    dragItems.show(newId, toY, toX);
+    dragItems.hide(value, fromY, fromX);
+
+    storage.save(playground.arr);
+  }
 }
 
 const run = () => {
@@ -65,8 +77,8 @@ const run = () => {
 
   populate(playground, dragItems);
 
-  // Need to remove this line, and fix reflection
-  // window.location.reload();
+  stepCount += 1;
+  stepCountDOM.innerHTML = `Generation : ${stepCount}`;
 };
 
 const drags = document.querySelectorAll('.drag');
@@ -90,22 +102,47 @@ dropTargets.forEach((item) => {
 const stepBtn = document.querySelector('.step-btn');
 stepBtn.addEventListener('click', () => {
   run();
+  window.location.reload();
 });
-
-let refreshIntervalId;
 
 const startBtn = document.querySelector('.start-btn');
 startBtn.addEventListener('click', () => {
   refreshIntervalId = setInterval(run, 500);
+  startBtn.classList.add('activated');
 });
 
 const stopBtn = document.querySelector('.stop-btn');
 stopBtn.addEventListener('click', () => {
   clearInterval(refreshIntervalId);
+  startBtn.classList.remove('activated');
 });
 
 const resetBtn = document.querySelector('.reset-btn');
 resetBtn.addEventListener('click', () => {
   storage.remove();
   window.location.reload();
+});
+
+const settingsOpenBtn = document.querySelector('.header-settings-open');
+settingsOpenBtn.addEventListener('click', () => {
+  const popupSettings = document.querySelector('.popup-settings');
+  popupSettings.classList.toggle('hide');
+});
+
+const settingsCloseBtn = document.querySelector('.popup-settings-close');
+settingsCloseBtn.addEventListener('click', () => {
+  const popupSettings = document.querySelector('.popup-settings');
+  popupSettings.classList.toggle('hide');
+});
+
+const settingsSaveBtn = document.querySelector('.popup-settings-save');
+settingsSaveBtn.addEventListener('click', () => {
+  const popupSettings = document.querySelector('.popup-settings');
+  popupSettings.classList.toggle('hide');
+
+  const playgroundSize = document.querySelector('#playgroundSize');
+
+  playgroundColumns = playgroundSize.value;
+  playgroundRows = playgroundSize.value;
+  dragItemsNumber = playgroundSize.value;
 });
