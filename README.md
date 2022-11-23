@@ -32,7 +32,7 @@
 
 # 👁‍🗨 Preview
 
-
+![Recording 2022-11-23 at 20 51 33](https://user-images.githubusercontent.com/106581139/203634815-fb294583-f76f-4eef-b5d4-aa2010a46670.gif)
 
 ## 🛠 Built With <a name="built-with"></a>
 
