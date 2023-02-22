@@ -73,6 +73,8 @@
 
 - [Live Demo Link](https://sergskol.github.io/biocells/dist)
 
+- [Video](video.mp4)
+
 <!-- GETTING STARTED -->
 
 ## 💻 Getting Started <a name="getting-started"></a>
