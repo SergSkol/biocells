@@ -129,7 +129,7 @@ If you like to deploy the website to the github pages please follow the link her
 
 - GitHub: [@SergSkol](https://github.com/SergSkol)
 - Twitter: [@sps676](https://twitter.com/sps676)
-- LinkedIn: [LinkedIn](https://www.linkedin.com/in/sergiy-shkolnik-7801a53/)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/sergskol/)
 
 <!-- FUTURE FEATURES -->
 
